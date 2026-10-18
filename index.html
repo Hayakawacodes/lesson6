@@ -32,8 +32,9 @@
 
       /* カードを画面の中央に置くための設定 */
       display: flex;
-      justify-content: center; /* 横方向の中央 */
-      align-items: center;     /* 縦方向の中央 */
+      flex-direction: column;  /* カードとフッターを縦に並べる */
+      justify-content: center; /* 縦方向の中央 */
+      align-items: center;     /* 横方向の中央 */
       padding: 24px;
       box-sizing: border-box;
     }
@@ -157,6 +158,18 @@
       max-width: 100%;   /* カードからはみ出さないようにする */
       border-radius: 12px;
     }
+
+    footer {
+      /* footer = ページの一番下に置く情報（著作権表示など） */
+      margin-top: 24px;
+      color: #fff;      /* 背景のグラデーションの上で読めるように白にする */
+      font-size: 14px;
+    }
+
+    footer p {
+      color: #fff;      /* 上の p のグレー指定を上書きする */
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -202,6 +215,11 @@
 
     <img src="photo.png" alt="原神" width="300">
   </div>
+
+  <footer>
+    <!-- ↑ footer = ページのフッター（一番下の部分） -->
+    <p>© 2025 Hayakawa</p>
+  </footer>
 </body>
 <!-- ↑ HTMLの終わり -->
 </html>
