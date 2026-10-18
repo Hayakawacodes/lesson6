@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!-- ↑ 「これはHTMLファイルです」とブラウザに伝える宣言 -->
+
+<html lang="ja">
+<!-- ↑ HTMLの始まり。lang="ja" は日本語のページであることを示す -->
+
+<head>
+  <!-- head の中は「設定情報」。ブラウザには表示されない -->
+  <meta charset="UTF-8">
+  <!-- ↑ 文字コードの指定。日本語を正しく表示するために必要 -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ↑ スマホでも画面幅に合わせて表示するための設定 -->
+
+  <title>自己紹介</title>
+  <!-- ↑ ブラウザのタブに表示されるタイトル -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <!-- ↑ Google Fonts から「Noto Sans JP」を読み込む（400=普通, 700=太字, 900=極太） -->
+
+  <style>
+    /* CSSはここに書く。「どの要素を」「どう見せるか」を指定する */
+
+    body {
+      /* body = ページ全体に適用するスタイル */
+      margin: 0;
+      min-height: 100vh; /* 画面の高さいっぱいに広げる */
+      background: linear-gradient(135deg, #0a2a6b, #5ecbf5); /* 濃い青 → 水色 のグラデーション */
+      font-family: "Noto Sans JP", sans-serif; /* Google Fonts のフォントを使う */
+
+      /* カードを画面の中央に置くための設定 */
+      display: flex;
+      justify-content: center; /* 横方向の中央 */
+      align-items: center;     /* 縦方向の中央 */
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    .card {
+      /* .card = 自己紹介カード */
+      background-color: #fff;  /* 白い背景 */
+      border-radius: 20px;     /* 角を丸くする */
+      padding: 40px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); /* 影をつけて浮いて見せる */
+      animation: fadeInUp 0.8s ease-out; /* 下の @keyframes fadeInUp を0.8秒で再生する */
+    }
+
+    @keyframes fadeInUp {
+      /* @keyframes = アニメーションの「始まり」と「終わり」の状態を決める */
+      from {
+        opacity: 0;                  /* 透明 */
+        transform: translateY(40px); /* 40px 下にずらした位置 */
+      }
+      to {
+        opacity: 1;                  /* 完全に見える */
+        transform: translateY(0);    /* 元の位置 */
+      }
+    }
+
+    h1 {
+      /* h1 = 大見出し（名前） */
+      color: #0a2a6b;    /* 文字色（濃い青） */
+      font-size: 40px;   /* 大きく */
+      font-weight: 900;  /* 太字（極太） */
+      margin: 0 0 16px;
+    }
+
+    p {
+      /* p = 段落テキストに適用するスタイル */
+      color: #555;      /* 文字色（グレー） */
+      line-height: 1.8; /* 行間（1.8倍に広げる） */
+    }
+
+    ul {
+      list-style: none; /* 箇条書きの「・」を消す */
+      padding: 0;
+      color: #333;
+    }
+
+    li {
+      /* 各項目をボタンのような見た目にする */
+      margin: 10px 0;
+      padding: 12px 20px;          /* 内側の余白 */
+      background-color: #e3f2fd;   /* 背景色（薄い青） */
+      border-radius: 12px;         /* 角を丸くする */
+      cursor: pointer;             /* マウスを乗せると指マークになる */
+      transition: background-color 0.3s, color 0.3s; /* 色の変化を0.3秒でなめらかに */
+    }
+
+    li:hover {
+      /* :hover = マウスを乗せたときだけ適用されるスタイル */
+      background-color: #0a2a6b;   /* 背景色（濃い青） */
+      color: #fff;                 /* 文字色（白） */
+    }
+
+    /* ===== スキルセクション ===== */
+
+    h2 {
+      /* h2 = 中見出し */
+      color: #0a2a6b;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 32px 0 16px;
+    }
+
+    .skill {
+      text-align: left; /* スキル名とバーは左寄せにする */
+      margin-bottom: 16px;
+    }
+
+    .skill-label {
+      /* スキル名と % を左右の端に分けて並べる */
+      display: flex;
+      justify-content: space-between;
+      color: #333;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .bar {
+      /* バーの「枠」（灰色の部分） */
+      background-color: #e0e0e0;
+      height: 12px;
+      border-radius: 6px;
+      overflow: hidden; /* 中のバーが角丸からはみ出さないようにする */
+    }
+
+    .bar-fill {
+      /* バーの「中身」（色がつく部分） */
+      height: 100%;
+      width: var(--level); /* HTML側の style="--level: 40%" の値が入る */
+      background: linear-gradient(90deg, #0a2a6b, #5ecbf5); /* 濃い青 → 水色 */
+      border-radius: 6px;
+      animation: grow 1.2s ease-out 0.8s both; /* 1.2秒で伸びる。カードが出終わる0.8秒後に開始 */
+    }
+
+    @keyframes grow {
+      /* 幅0%から、指定した幅（--level）まで伸ばす */
+      from {
+        width: 0;
+      }
+    }
+
+    a {
+      color: #1a73e8;
+      font-weight: 700;
+    }
+
+    img {
+      display: block;
+      margin: 24px auto 0;
+      max-width: 100%;   /* カードからはみ出さないようにする */
+      border-radius: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- body の中に「表示したい内容」を書く -->
+
+  <div class="card">
+    <!-- ↑ div = 中身をまとめる箱。class="card" でカードのスタイルを当てる -->
+
+    <h1>早川日向</h1>
+    <!-- ↑ 大見出し。ページで最も目立つタイトルに使う -->
+
+    <p>こんにちは！プログラミングを学習中です。</p>
+    <!-- ↑ 段落テキスト。普通の文章は p タグで囲む -->
+
+    <ul>
+      <!-- ul = 箇条書きリスト。li で各項目を囲む -->
+      <li>趣味: ゲーム</li>
+      <li>趣味: 音楽</li>
+      <li>趣味: アニメ</li>
+    </ul>
+
+    <h2>スキル</h2>
+    <!-- ↑ 中見出し。h1 の次に大きい見出し -->
+
+    <div class="skill">
+      <div class="skill-label"><span>HTML/CSS</span><span>40%</span></div>
+      <div class="bar"><div class="bar-fill" style="--level: 40%"></div></div>
+      <!-- ↑ --level の値を変えるとバーの長さが変わる -->
+    </div>
+
+    <div class="skill">
+      <div class="skill-label"><span>JavaScript</span><span>20%</span></div>
+      <div class="bar"><div class="bar-fill" style="--level: 20%"></div></div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-label"><span>AI活用</span><span>80%</span></div>
+      <div class="bar"><div class="bar-fill" style="--level: 80%"></div></div>
+    </div>
+
+    <a href="https://www.google.com">Googleを開く</a>
+
+    <img src="photo.png" alt="原神" width="300">
+  </div>
+</body>
+<!-- ↑ HTMLの終わり -->
+</html>
